@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Phone Number Validator</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="container">
+		<h1>Phone Number Validator</h1>
+		<form>
+			<label for="phone-number">Enter Phone Number:</label>
+			<input type="tel" id="phone-number" name="phone-number" pattern="[0-9]{10}" required>
+			<button type="submit" id="submit-button">Validate</button>
+		</form>
+		<div id="result"></div>
+	</div>
+
+	<script src="script.js"></script>
+</body>
+</html>
+
+<script>
+
+const form = document.querySelector("form");
+const phoneInput = document.getElementById("phone-number");
+const resultDiv = document.getElementById("result");
+
+form.addEventListener("submit", (event) => {
+	event.preventDefault();
+	const phone = phoneInput.value.replace(/\D/g, ""); // Remove all non-digit characters
+	const valid = isValidPhoneNumber(phone);
+	if (valid) {
+		resultDiv.textContent = "Phone number is valid.";
+		resultDiv.classList.remove("invalid");
+		resultDiv.classList.add("valid");
+	} else {
+		resultDiv.textContent = "Phone number is invalid.";
+		resultDiv.classList.remove("valid");
+		resultDiv.classList.add("invalid");
+	}
+});
+
+function isValidPhoneNumber(phone) {
+	// Validate phone number with regex
+	const phoneRegex = /^[0-9]{10}$/;
+	return phoneRegex.test(phone);
+}
+</script>
